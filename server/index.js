@@ -3,26 +3,28 @@ import cors from "cors";
 import morgan from "morgan";
 import connectDB from "./db.js";
 import multer from "multer";
-import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import yaml from "js-yaml";
 import OpenAPIDoc from "./models/OpenAPIDoc.js";
 import router from "./router/user.js";
 import dotenv from "dotenv";
-
+import projectRouter from "./router/project.js";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use('/api', router);
+app.use("/api", router);
+app.use("/api", projectRouter);
 
 const upload = multer({ dest: "uploads/" });
 let currentOpenAPISpec = null;
@@ -87,7 +89,6 @@ app.get("/openapi.json", (req, res) => {
 });
 
 connectDB();
-
 
 // Start server
 app.listen(PORT, () => {

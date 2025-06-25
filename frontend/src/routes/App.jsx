@@ -7,6 +7,7 @@ import Home from "../components/Home";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 import Profile from "../components/Profile";
+import NewProject from "../components/Project/NewProject";
 
 function App() {
   return (
@@ -15,10 +16,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
-        <Route path="/get-started" element={<OpenAPIUploader />} />
+        <Route path="/upload-openapi" element={<OpenAPIUploader />} />
         <Route path="/docs" element={<APIDocs />} />
         <Route path="/api-tester" element={<APITester />} />
         <Route path="/f" element={<Profile />} />
+        <Route path="/project-new" element={<NewProject />} />
+
 
       </Routes>
     </Router>

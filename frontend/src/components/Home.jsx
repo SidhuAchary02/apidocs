@@ -2,10 +2,10 @@ import React from "react";
 
 const Home = () => {
   const handleLogin = () => {
-    window.location.href = "http://localhost:5173/api/login";
+    window.location.href = "http://localhost:5173/login";
   };
   const handleSignup = () => {
-    window.location.href = "http://localhost:5173/api/signup";
+    window.location.href = "http://localhost:5173/signup";
   };
   return (
     <div>

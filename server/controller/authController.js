@@ -10,6 +10,9 @@ export async function googleAuth(req, res) {
   if (!token)
     return res.status(400).json({ message: "No credential provided" });
 
+  console.log("Received token from frontend:", token);
+
+
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
@@ -47,6 +50,7 @@ export async function googleAuth(req, res) {
         email: user.email,
       },
     });
+
   } catch (err) {
     console.error(err);
     res.status(401).json({ message: "Google auth failed" });
