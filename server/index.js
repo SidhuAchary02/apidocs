@@ -17,7 +17,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://apidocs-lemon.vercel.app/"
+  "https://apidocs-lemon.vercel.app"
 ];
 
 app.use(
