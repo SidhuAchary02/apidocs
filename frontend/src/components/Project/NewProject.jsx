@@ -1,13 +1,37 @@
 import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewProject = () => {
   const [projectName, setProjectName] = useState("");
   const [color, setColor] = useState("#FFFFFF");
   const [logo, setLogo] = useState("");
   const [msg, setMsg] = useState("");
+  const [subdomain, setSubdomain] = useState("");
   const [showOptions, setShowOptions] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("newProjectFOrm"));
+    if (savedData) {
+      setProjectName(savedData.projectName || "");
+      setColor(savedData.color || "#FFFFFF");
+      setSubdomain(savedData.subdomain || "");
+    }
+  }, []);
+
+  useEffect(() => {
+    const dataToSave = {
+      projectName,
+      color,
+      subdomain,
+    };
+
+    localStorage.setItem("newProjectFOrm", JSON.stringify(dataToSave));
+  }, [projectName, color, subdomain]);
 
   //   useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -32,6 +56,17 @@ const NewProject = () => {
     formData.append("name", projectName);
     formData.append("brandColor", color);
     formData.append("logo", logo);
+    formData.append("subdomain", subdomain);
+
+    const subdomainRegex = /^[a-z0-9\-]+$/;
+    if (!subdomainRegex.test(subdomain)) {
+      setMsg(
+        "Subdomain can only contain lowercase letters, numbers, and hyphens."
+      );
+      return;
+    }
+
+    console.log(logo);
 
     try {
       const response = await axios.post(
@@ -46,13 +81,16 @@ const NewProject = () => {
       );
 
       setMsg(response.data.message);
+      setMsg(`Project created: ${response.data.projectURL}`);
       console.log("project created", response.data);
+
+      localStorage.removeItem("newProjectFOrm");
 
       // Redirect based on choice
       if (choice === "upload") {
-        window.location.href = "/upload-openapi";
+        navigate("/upload-openapi");
       } else {
-        window.location.href = "/manual-define";
+        navigate("/manual-define");
       }
     } catch (error) {
       console.error("Project creation failed:", error);
@@ -74,12 +112,19 @@ const NewProject = () => {
             placeholder="Wonderful Docs"
             required
           />
+          <label>SubDomain</label>
+          <input
+            type="text"
+            value={subdomain}
+            onChange={(e) => setSubdomain(e.target.value)}
+            placeholder="wonderful-docs"
+            required
+          />
           <label>Logo</label>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setLogo(e.target.files[0])}
-            required
           />
           <label>Brand Color</label>
           <input

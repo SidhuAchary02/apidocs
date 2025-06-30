@@ -14,6 +14,16 @@ const projectSchema = new mongoose.Schema(
       default: "#FFFFFF",
       required: true,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    subdomain:{
+      type:String,
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,
