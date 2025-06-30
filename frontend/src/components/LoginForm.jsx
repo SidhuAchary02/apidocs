@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import GoogleAuthButton from "./GoogleAuthButton";
+import api from "../api";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -18,8 +19,8 @@ const LoginForm = () => {
     console.log(data);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/login",
+      const response = await api.post(
+        "/login",
         data
       );
       localStorage.setItem('token', response.data.token);

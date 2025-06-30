@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import api from "../api";
 
 function OpenAPIUploader() {
   const [file, setFile] = useState(null);
@@ -19,7 +20,7 @@ function OpenAPIUploader() {
     formData.append("file", file);
 
     try {
-      await axios.post("http://localhost:4000/upload-openapi", formData, {
+      await api.post("/upload-openapi", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import GoogleAuthButton from "./GoogleAuthButton";
+import api from "../api";
 
 const SignupForm = () => {
   const [name, setName] = useState("");
@@ -22,8 +23,8 @@ const SignupForm = () => {
       password: password,
     };
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/signup",
+      const response = await api.post(
+        "/signup",
         data
       );
       localStorage.setItem('token', response.data.token);

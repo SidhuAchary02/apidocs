@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import api from '../../api';
+
 const NewProject = () => {
   const [projectName, setProjectName] = useState("");
   const [color, setColor] = useState("#FFFFFF");
@@ -69,8 +71,8 @@ const NewProject = () => {
     console.log(logo);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/project/new",
+      const response = await api.post(
+        "/project/new",
         formData,
         {
           headers: {
