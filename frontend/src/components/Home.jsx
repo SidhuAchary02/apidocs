@@ -1,11 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const handleLogin = () => {
-    window.location.href = "http://localhost:5173/login";
+    navigate("/login");
   };
   const handleSignup = () => {
-    window.location.href = "http://localhost:5173/signup";
+    navigate("/signup");
   };
   return (
     <div>
