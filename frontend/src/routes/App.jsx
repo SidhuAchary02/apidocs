@@ -8,6 +8,7 @@ import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 import Profile from "../components/Profile";
 import NewProject from "../components/Project/NewProject";
+import DashboardHome from "../components/Dashboard/DashboardHome";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/api-tester" element={<APITester />} />
         <Route path="/f" element={<Profile />} />
         <Route path="/project-new" element={<NewProject />} />
+        <Route path="/dash" element={<DashboardHome />} />
 
 
       </Routes>

@@ -57,3 +57,21 @@ export async function createProject(req, res) {
       .json({ error: "Failed to create project", detail: error.message });
   }
 }
+
+export async function getAllProjects(req, res) {
+  try {
+    const userId = req.user.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "user not found" });
+    }
+
+    const projects = await Project.find({ user: userId }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json({ projects });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while fetching projects" });
+  }
+}
